@@ -30,7 +30,19 @@ def printBtcaResponse(msg):
             #    break
         print(tbl)
     elif responseName == "reportableColumnsResponse":
-        print(response)
+        newHdr = ['columnId', 'groupName', 'defaultDescription', 'isBenchmark']
+        tbl = PrettyTable(newHdr)
+        tbl.align = 'l'
+        i = 0
+        for col in response.getElement("columns").values():
+            newRow = []
+            i = i + 1
+            for colId in newHdr:
+                newRow.append(col.getElement(colId).getValueAsString())
+            tbl.add_row(newRow)
+            #if i > 50:
+            #   break
+         print(tbl)
     elif responseName == "reportableTargetsResponse":
         print(response)
 
